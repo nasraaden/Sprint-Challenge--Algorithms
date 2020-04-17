@@ -99,6 +99,7 @@ class SortingRobot:
         Sort the robot's list.
         """
         # Fill this out
+
         # robot is holding self._item
         # robot is going through each self._position (current index)
         # using bubble sort
@@ -106,41 +107,35 @@ class SortingRobot:
         # while the robot's light is on (equals True) and the robot can move right: compare item that robot is holding to item at position that robot is at
         # if robot can move right
         # if item robot is holding is greater than item robot is at (if compare_items returns 1), robot should swap
-        # if item is less than item at position, move right
+        # if item is less than item at position, then robot moves left to set the item down, pick up the item at that position (swap), then robot moves right to do the process again
+        # if robot can move left
+        # if item robot is holding is less than item robot is at (if compare_items returns -1), robot should swap
+        # if item is greater than item at position, then robot moves right to set the item down, pick up the item at that position (swap), then robot moves left to do the process again
+        # with each comparison and swap, light is turned obn to keep the loop going until everything is sorted
 
         self.set_light_on()
         while self.light_is_on():
-            print('hello')
             self.set_light_off()
 
-            if self.can_move_right():
+            while self.can_move_right():
+                self.swap_item()
                 self.move_right()
-
                 if self.compare_item() == 1:
-                    print('reaching here at if right')
                     self.swap_item()
                     self.set_light_on()
+                self.move_left()
+                self.swap_item()
+                self.move_right()
 
-                else:
-                    print('reaching here at else for move right')
-                    print('item robot picked up: ', self._item)
-                    print('position where robot is: ', self._position)
-                    print('item at position where robot is: ',
-                          self._list[self._position])
-
-            if self.can_move_left():
-                self.move_left
-
+            while self.can_move_left():
+                self.swap_item()
+                self.move_left()
                 if self.compare_item() == -1:
                     self.swap_item()
                     self.set_light_on()
-                    print('reaching here at elif left')
-                else:
-                    print('reaching here at else for move left')
-                    print('item robot picked up: ', self._item)
-                    print('position where robot is: ', self._position)
-                    print('item at position where robot is: ',
-                          self._list[self._position])
+                self.move_right()
+                self.swap_item()
+                self.move_left()
 
 
 if __name__ == "__main__":
@@ -149,6 +144,8 @@ if __name__ == "__main__":
 
     l = [15, 41, 58, 49, 26, 4, 28, 8, 61, 60, 65, 21, 78, 14, 35, 90, 54, 5, 0, 87, 82, 96, 43, 92, 62, 97, 69, 94, 99, 93, 76, 47, 2, 88, 51, 40, 95, 6, 23, 81, 30, 19, 25, 91, 18, 68, 71, 9, 66, 1,
          45, 33, 3, 72, 16, 85, 27, 59, 64, 39, 32, 24, 38, 84, 44, 80, 11, 73, 42, 20, 10, 29, 22, 98, 17, 48, 52, 67, 53, 74, 77, 37, 63, 31, 7, 75, 36, 89, 70, 34, 79, 83, 13, 57, 86, 12, 56, 50, 55, 46]
+
+    print(l)
 
     robot = SortingRobot(l)
 
