@@ -103,13 +103,13 @@ class SortingRobot:
         # robot is holding self._item
         # robot is going through each self._position (current index)
         # using bubble sort
-        # if robot light's on:
-        # while the robot's light is on (equals True) and the robot can move right: compare item that robot is holding to item at position that robot is at
-        # if robot can move right
-        # if item robot is holding is greater than item robot is at (if compare_items returns 1), robot should swap
+        # turn robot light on to initialize loop
+        # while the robot's light is on (equals True) and the robot can move right or left: compare item that robot is holding to item at position that robot is at, swap or keep moving
+        # if robot can move right, swap and keep moving right
+        # if item robot is holding is greater than item at the position robot is at (if compare_items returns 1), robot should swap
         # if item is less than item at position, then robot moves left to set the item down, pick up the item at that position (swap), then robot moves right to do the process again
-        # if robot can move left
-        # if item robot is holding is less than item robot is at (if compare_items returns -1), robot should swap
+        # if robot can move left, swap and keep moving left
+        # if item robot is holding is less than item at the position robot is at (if compare_items returns -1), robot should swap
         # if item is greater than item at position, then robot moves right to set the item down, pick up the item at that position (swap), then robot moves left to do the process again
         # with each comparison and swap, light is turned obn to keep the loop going until everything is sorted
 
@@ -120,9 +120,11 @@ class SortingRobot:
             while self.can_move_right():
                 self.swap_item()
                 self.move_right()
+
                 if self.compare_item() == 1:
                     self.swap_item()
                     self.set_light_on()
+
                 self.move_left()
                 self.swap_item()
                 self.move_right()
@@ -130,9 +132,11 @@ class SortingRobot:
             while self.can_move_left():
                 self.swap_item()
                 self.move_left()
+
                 if self.compare_item() == -1:
                     self.swap_item()
                     self.set_light_on()
+
                 self.move_right()
                 self.swap_item()
                 self.move_left()
